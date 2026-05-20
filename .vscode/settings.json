@@ -1,0 +1,13 @@
+{
+  "mssql.connections": [
+    {
+      "server": "localhost",
+      "database": "BoothByMinDB",
+      "user": "sa",
+      "password": "123",
+      "authenticationType": "SqlLogin",
+      "profileName": "BoothByMinDB (Local)",
+      "port": 1433
+    }
+  ]
+}

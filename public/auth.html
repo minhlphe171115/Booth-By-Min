@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập / Đăng Ký - Booth By Min</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, var(--secondary-pink), transparent 40%),
+                        radial-gradient(circle at bottom left, #fff0f5, transparent 40%);
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            color: var(--text-dark);
+        }
+
+        /* Toggle form */
+        .form-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: #fff0f5;
+            border-radius: 30px;
+            padding: 5px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 25px;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-pink);
+            color: white;
+        }
+
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--primary-pink);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Booth By Min</h2>
+
+            <div class="form-toggle">
+                <div class="toggle-btn active" id="loginToggle">Đăng Nhập</div>
+                <div class="toggle-btn" id="registerToggle">Đăng Ký</div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active">
+                <div class="input-group">
+                    <label for="loginUsername">Tên Instagram của bạn</label>
+                    <input type="text" id="loginUsername" required placeholder="Ví dụ: @boothbymin...">
+                    <small style="display: block; margin-top: 5px; color: var(--primary-pink); font-size: 0.85em; font-style: italic;">* Vui lòng nhập đúng tài khoản Instagram bạn đã đăng ký</small>
+                </div>
+                <div class="input-group">
+                    <label for="loginPassword">Mật khẩu</label>
+                    <input type="password" id="loginPassword" required placeholder="Nhập mật khẩu...">
+                </div>
+                <button type="submit" class="btn primary-btn submit-btn">Vào Chụp Ngay!</button>
+                <div id="loginMessage" style="display:none; color: red; margin-top: 10px; text-align: center; font-size: 0.9em;"></div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="auth-form">
+                <div class="input-group">
+                    <label for="regFullName">Họ và Tên</label>
+                    <input type="text" id="regFullName" required placeholder="Tên để chúng mình gọi bạn...">
+                </div>
+                <div class="input-group">
+                    <label for="regUsername">Tên Instagram của bạn</label>
+                    <input type="text" id="regUsername" required placeholder="Ví dụ: @boothbymin...">
+                    <small style="display: block; margin-top: 5px; color: var(--primary-pink); font-size: 0.85em; font-style: italic;">* Nhập ID Instagram để chúng mình dễ dàng liên hệ và hỗ trợ nhé!</small>
+                </div>
+                <div class="input-group">
+                    <label for="regPassword">Mật khẩu</label>
+                    <input type="password" id="regPassword" required placeholder="Mật khẩu của bạn...">
+                </div>
+                <button type="submit" class="btn primary-btn submit-btn">Tạo Tài Khoản</button>
+                <div id="registerMessage" style="display:none; margin-top: 10px; text-align: center; font-size: 0.9em;"></div>
+            </form>
+
+            <a href="index.html" class="back-link">← Trở về trang chủ</a>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

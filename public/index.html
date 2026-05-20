@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booth By Min - Nơi lưu giữ kỉ niệm đẹp</title>
+    <!-- Thêm font chữ cao cấp và hiện đại: Outfit (thân bài) và Playfair Display (tiêu đề sang trọng) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="navbar">
+        <div class="logo">
+            <h1>Booth <span>By Min</span></h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#hero">Trang Chủ</a></li>
+                <li><a href="#booking">Chụp Ngay</a></li>
+                <li><a href="#pricing">Bảng Giá</a></li>
+                <li><a href="auth.html" class="nav-login-btn">Đăng nhập</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: var(--text-dark); line-height: 1.2;">Lưu Giữ Khoảnh Khắc, <br><span style="font-family: 'Great Vibes', cursive; color: var(--primary-pink); font-size: 5rem; font-weight: normal; letter-spacing: 2px;">Trọn Vẹn Thanh Xuân</span></h2>
+            <p>Booth By Min mang đến trải nghiệm selfbooth trọn vẹn với đội ngũ nhân viên nhiệt tình, luôn hỗ trợ tận
+                tâm để bạn có những bức ảnh ưng ý nhất 📸
+                nhiều background xinh xắn, đi kèm kho frame thiết kế đẹp mắt, giúp mỗi tấm hình đều có dấu ấn riêng. Đặc
+                biệt, mức giá siêu “hạt dẻ” – phù hợp để bạn thoải mái chụp nhiều lần mà không cần lăn tăn 🤍✨.</p>
+            <a href="auth.html" class="btn primary-btn">Chụp ngay</a>
+            <a href="#booking" class="btn primary-btn">Đặt lịch</a>
+        </div>
+        <div class="hero-image">
+            <div class="glass-card slider-container floating">
+                <button class="slider-btn prev-btn" id="prevSlide">❮</button>
+                <div class="slider-wrapper" id="dynamicSlider">
+                    <!-- Ảnh sẽ được load từ API -->
+                </div>
+                <button class="slider-btn next-btn" id="nextSlide">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form Section -->
+    <section id="booking" class="booking">
+        <h2 style="text-align: center; margin-bottom: 20px;">Bạn Sẵn Sàng <span class="highlight">Có Ảnh Xinh</span>
+            Chưa?
+        </h2>
+
+        <div class="booking-split">
+            <!-- Cột trái: Chụp Ngay -->
+            <div class="booking-left">
+                <h3>Chụp <span class="highlight">Ngay!</span></h3>
+                <p>Bạn đang ở studio của chúng tớ? Hãy đăng nhập và chọn phòng chụp ngay lập tức mà không cần chờ đợi.
+                </p>
+                <div class="shoot-now-card glass-form">
+                    <a href="auth.html" class="btn primary-btn shoot-btn">Đăng Nhập / Đăng Ký Ngay</a>
+                </div>
+            </div>
+
+            <!-- Cột phải: Đặt Lịch Trước -->
+            <div class="booking-right">
+                <h3>Đặt Lịch <span class="highlight">Trước</span></h3>
+                <p>Để lại thông tin, chúng mình sẽ chuẩn bị phòng chụp tốt nhất cho bạn nhé!</p>
+                <form id="bookingForm" class="glass-form">
+                    <div class="input-group">
+                        <label for="name">Tên của bạn</label>
+                        <input type="text" id="name" name="name" required placeholder="Nhập tên instagram của bạn...">
+                    </div>
+                    <div class="input-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Nhập số điện thoại...">
+                    </div>
+                    <div class="input-group">
+                        <label for="date">Ngày chụp</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="notes">Ghi chú thêm (Tùy chọn)</label>
+                        <textarea id="notes" name="notes" rows="3"
+                            placeholder="Bạn có yêu cầu đặc biệt gì không?"></textarea>
+                    </div>
+                    <button type="submit" class="btn primary-btn submit-btn">Gửi Đăng Ký</button>
+                </form>
+                <div id="formMessage"
+                    style="display: none; margin-top: 15px; text-align: center; color: var(--text-dark);"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <h2>Bảng Giá <span class="highlight">Dịch Vụ</span></h2>
+        <div class="pricing-cards" id="publicPackagesGrid">
+            <p style="text-align:center; width:100%;">Đang tải danh sách gói chụp...</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Booth By Min. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

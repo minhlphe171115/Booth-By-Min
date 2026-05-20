@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booth By Min - Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Booth <span>By Min</span></h2>
+                <p>Admin Portal</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active" data-target="orders">Khách Đặt Lịch</li>
+                <li data-target="settings">Cài Đặt</li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn logout-btn">Đăng Xuất</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Section: Orders -->
+            <section id="orders" class="content-section active">
+                <header>
+                    <h1>Lịch sử khách chụp</h1>
+                </header>
+                
+                <!-- Bổ sung form lọc doanh thu tuỳ chỉnh -->
+                <div class="custom-stats-container" style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--box-shadow); margin-bottom: 20px;">
+                    <h2 style="font-size: 1.2em; margin-bottom: 15px; color: var(--primary-pink);">Tra Cứu Doanh Thu Tuỳ Chỉnh</h2>
+                    <form id="customStatsForm" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                        <div class="input-group" style="flex: 1; min-width: 150px; margin: 0;">
+                            <label for="statStartDate" style="display: block; margin-bottom: 5px;">Từ Ngày Giờ</label>
+                            <input type="datetime-local" id="statStartDate" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div class="input-group" style="flex: 1; min-width: 150px; margin: 0;">
+                            <label for="statEndDate" style="display: block; margin-bottom: 5px;">Đến Ngày Giờ</label>
+                            <input type="datetime-local" id="statEndDate" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn primary-btn" style="height: 42px; min-width: 120px;">Lọc</button>
+                    </form>
+                    <div id="customStatsResult" style="display: none; margin-top: 15px; padding: 15px; background: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--primary-pink);">
+                        <strong style="color: var(--text-dark);">Tổng doanh thu trong kỳ: </strong>
+                        <span id="customStatsAmount" style="font-size: 1.5em; font-weight: bold; color: var(--primary-pink); margin-left: 10px;">0đ</span>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Đơn</th>
+                                <th>Khách Hàng</th>
+                                <th>Số Điện Thoại</th>
+                                <th>Gói</th>
+                                <th>Tổng Tiền</th>
+                                <th>Thời Gian Đặt</th>
+                                <th>Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Dữ liệu render từ JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="ordersPagination" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;"></div>
+            </section>
+
+            <!-- Section: Settings -->
+            <section id="settings" class="content-section">
+                <header>
+                    <h1>Cài Đặt Tài Khoản</h1>
+                </header>
+                <div class="settings-container" style="max-width: 500px; background: white; padding: 20px; border-radius: 10px; box-shadow: var(--box-shadow);">
+                    <h3 style="margin-bottom: 20px;">Đổi Mật Khẩu</h3>
+                    <form id="changePasswordForm">
+                        <div class="input-group" style="margin-bottom: 15px;">
+                            <label for="newPassword" style="display: block; margin-bottom: 5px;">Mật Khẩu Mới</label>
+                            <input type="password" id="newPassword" required placeholder="Nhập mật khẩu mới..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn primary-btn" style="width: 100%;">Cập Nhật Mật Khẩu</button>
+                        <div id="passwordMessage" style="display:none; margin-top: 10px; text-align: center; font-size: 0.9em;"></div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="staff-dashboard.js"></script>
+</body>
+
+</html>

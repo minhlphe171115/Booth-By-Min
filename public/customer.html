@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booth By Min - Customer Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="customer.css">
+</head>
+
+<body>
+    <div class="customer-container">
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Booth <span>By Min</span></h2>
+                <p>Khách hàng: <span id="displayCustomerName"></span></p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active" data-target="book">Chọn Gói Chụp</li>
+                <li data-target="history">Lịch Sử Của Tôi</li>
+                <li data-target="feedback">Gửi Góp Ý</li>
+                <li data-target="profile">Tài Khoản</li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn logout-btn">Đăng Xuất</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Section: Chọn gói chụp -->
+            <section id="book" class="content-section active">
+                <header>
+                    <h1>Chọn Gói Chụp</h1>
+                </header>
+                <div class="packages-grid" id="packagesGrid">
+                    <!-- Load gói chụp từ JS -->
+                </div>
+            </section>
+
+            <!-- Section: Lịch sử -->
+            <section id="history" class="content-section">
+                <header>
+                    <h1>Lịch Sử Đặt Lịch</h1>
+                </header>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Đơn</th>
+                                <th>Gói</th>
+                                <th>Ngày Chụp</th>
+                                <th>Tổng Tiền</th>
+                                <th>Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Dữ liệu render từ JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="historyPagination" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;"></div>
+            </section>
+
+            <!-- Section: Góp ý -->
+            <section id="feedback" class="content-section">
+                <header>
+                    <h1>Gửi Góp Ý</h1>
+                </header>
+                <div class="form-container">
+                    <form id="feedbackForm">
+                        <div class="input-group">
+                            <label>Lời nhắn của bạn</label>
+                            <textarea id="feedbackMessage" rows="5" required placeholder="Bạn có hài lòng với dịch vụ không? Hãy chia sẻ nhé!"></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Gửi Góp Ý</button>
+                        <div id="feedbackSuccessMsg" style="display: none; margin-top: 15px; text-align: center; color: green; font-weight: bold;">Cảm ơn bạn đã góp ý!</div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Section: Tài khoản -->
+            <section id="profile" class="content-section">
+                <header>
+                    <h1>Thông Tin Tài Khoản</h1>
+                </header>
+                <div class="form-container">
+                    <form id="profileForm">
+                        <div class="input-group">
+                            <label>Họ và Tên</label>
+                            <input type="text" id="profileFullName" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Tên đăng nhập (Không thể đổi)</label>
+                            <input type="text" id="profileUsername" disabled>
+                        </div>
+                        <div class="input-group">
+                            <label>Số điện thoại</label>
+                            <input type="tel" id="profilePhone" placeholder="Nhập số điện thoại...">
+                        </div>
+                        <div class="input-group">
+                            <label>Mật khẩu mới (Để trống nếu không đổi)</label>
+                            <input type="password" id="profilePassword" placeholder="Nhập mật khẩu mới...">
+                        </div>
+                        <button type="submit" class="btn primary-btn">Cập Nhật Thông Tin</button>
+                        <div id="profileMessage" style="display: none; margin-top: 15px; text-align: center; font-weight: bold;"></div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Popup Thanh toán -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2 style="font-family: 'Playfair Display'; margin-bottom: 20px; text-align: center;">Thanh Toán</h2>
+            <p style="text-align: center;">Bạn đang chọn: <strong id="modalPackageName"></strong></p>
+            <p style="text-align: center; color: var(--primary-pink); font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;" id="modalPrice"></p>
+            
+            <div class="input-group">
+                <label>Chọn ngày chụp</label>
+                <input type="date" id="bookingDate" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Phương thức thanh toán</label>
+                <select id="paymentMethod" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: 'Outfit';">
+                    <option value="Tiền mặt">Thanh toán bằng Tiền Mặt</option>
+                    <option value="Chuyển khoản">Chuyển khoản / Quét QR</option>
+                </select>
+            </div>
+
+            <div id="qrCodeSection" style="text-align: center; margin: 20px 0; display: none;">
+                <img id="qrCodeImage" src="" alt="QR Code" style="border-radius: 10px; border: 2px solid #f7d2d9; max-width: 200px;">
+                <p style="margin-top: 10px; color: #777; font-size: 0.9rem;">Quét mã QR để thanh toán (Staff sẽ kiểm tra)</p>
+            </div>
+
+            <button class="btn primary-btn" id="confirmPaymentBtn" style="width: 100%;">Gửi Yêu Cầu Thanh Toán</button>
+            <div id="pollingMessage" style="display: none; margin-top: 15px; text-align: center; font-weight: bold; color: var(--primary-pink);">
+                Đang chờ nhân viên duyệt... Vui lòng không đóng trang này.
+            </div>
+        </div>
+    </div>
+
+    <script src="customer.js"></script>
+</body>
+
+</html>

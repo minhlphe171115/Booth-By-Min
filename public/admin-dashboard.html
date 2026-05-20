@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booth By Min - Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Booth <span>By Min</span></h2>
+                <p>Admin Portal</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active" data-target="dashboard">Tổng Quan</li>
+                <li data-target="orders">Đơn Hàng</li>
+                <li data-target="packages">Gói Chụp</li>
+                <li data-target="staff">Nhân Viên</li>
+                <li data-target="homepage">Ảnh Trang Chủ</li>
+                <li data-target="qr">Mã QR Thanh Toán</li>
+                <li data-target="feedbacks">Góp Ý Khách Hàng</li>
+                <li data-target="settings">Cài Đặt</li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn logout-btn">Đăng Xuất</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Section: Dashboard -->
+            <section id="dashboard" class="content-section active">
+                <header>
+                    <h1>Tổng Quan Doanh Thu</h1>
+                </header>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Doanh thu Hôm nay</h3>
+                        <p id="revenueDay">0đ</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Doanh thu Tháng này</h3>
+                        <p id="revenueMonth">0đ</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Tổng Doanh thu (Năm)</h3>
+                        <p id="revenueYear">0đ</p>
+                    </div>
+                </div>
+                
+                <!-- Bổ sung form lọc doanh thu tuỳ chỉnh -->
+                <div class="custom-stats-container" style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--box-shadow); margin-top: 20px;">
+                    <h2 style="font-size: 1.2em; margin-bottom: 15px; color: var(--primary-pink);">Tra Cứu Doanh Thu Tuỳ Chỉnh</h2>
+                    <form id="customStatsForm" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                        <div class="input-group" style="flex: 1; min-width: 150px; margin: 0;">
+                            <label for="statStartDate" style="display: block; margin-bottom: 5px;">Từ Ngày Giờ</label>
+                            <input type="datetime-local" id="statStartDate" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div class="input-group" style="flex: 1; min-width: 150px; margin: 0;">
+                            <label for="statEndDate" style="display: block; margin-bottom: 5px;">Đến Ngày Giờ</label>
+                            <input type="datetime-local" id="statEndDate" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn primary-btn" style="height: 42px; min-width: 120px;">Lọc</button>
+                    </form>
+                    <div id="customStatsResult" style="display: none; margin-top: 15px; padding: 15px; background: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--primary-pink);">
+                        <strong style="color: var(--text-dark);">Tổng doanh thu trong kỳ: </strong>
+                        <span id="customStatsAmount" style="font-size: 1.5em; font-weight: bold; color: var(--primary-pink); margin-left: 10px;">0đ</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Orders -->
+            <section id="orders" class="content-section">
+                <header>
+                    <h1>Lịch Sử Đơn Hàng</h1>
+                </header>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Đơn</th>
+                                <th>Khách Hàng</th>
+                                <th>Số Điện Thoại</th>
+                                <th>Gói</th>
+                                <th>Tổng Tiền</th>
+                                <th>Thời Gian Đặt</th>
+                                <th>Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Dữ liệu render từ JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="ordersPagination" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;"></div>
+            </section>
+
+            <!-- Section: Packages -->
+            <section id="packages" class="content-section">
+                <header>
+                    <h1>Quản Lý Gói Chụp</h1>
+                    <button class="btn primary-btn" id="addPackageBtn">+ Thêm Gói Mới</button>
+                </header>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên Gói</th>
+                                <th>Giá</th>
+                                <th>Chi Tiết</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="packagesTableBody">
+                            <!-- Dữ liệu render từ JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section: Staff -->
+            <section id="staff" class="content-section">
+                <header>
+                    <h1>Quản Lý Nhân Viên</h1>
+                    <button class="btn primary-btn" id="addStaffBtn">+ Thêm Nhân Viên</button>
+                </header>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Họ Tên</th>
+                                <th>Tài Khoản</th>
+                                <th>Vai Trò</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="staffTableBody">
+                            <!-- Dữ liệu render từ JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section: Homepage Images -->
+            <section id="homepage" class="content-section">
+                <header>
+                    <h1>Quản Lý Ảnh Trang Chủ</h1>
+                </header>
+                <div class="settings-container" style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--box-shadow); margin-bottom: 20px;">
+                    <form id="addImageForm" style="display: flex; gap: 10px; align-items: flex-end;">
+                        <div class="input-group" style="flex: 1; margin: 0;">
+                            <label for="newImageUrl" style="display: block; margin-bottom: 5px;">Link Ảnh URL</label>
+                            <input type="url" id="newImageUrl" required placeholder="Nhập đường link ảnh..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div class="input-group" style="width: 100px; margin: 0;">
+                            <label for="imageOrder" style="display: block; margin-bottom: 5px;">Thứ tự</label>
+                            <input type="number" id="imageOrder" value="1" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn primary-btn" style="height: 42px;">Thêm Ảnh</button>
+                    </form>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Thứ tự</th>
+                                <th>Hình Ảnh</th>
+                                <th>URL</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="imagesTableBody">
+                            <!-- JS Render -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section: QR Code -->
+            <section id="qr" class="content-section">
+                <header>
+                    <h1>Quản Lý Mã QR Chuyển Khoản</h1>
+                </header>
+                <div class="settings-container" style="max-width: 500px; background: white; padding: 20px; border-radius: 10px; box-shadow: var(--box-shadow);">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img id="currentQrImage" src="" alt="QR Code" style="max-width: 200px; border-radius: 10px; border: 2px solid #f7d2d9;">
+                    </div>
+                    
+                    <h3 style="margin-bottom: 10px; font-size: 16px;">Cách 1: Tải ảnh từ máy tính</h3>
+                    <form id="uploadQrForm" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee;">
+                        <div class="input-group" style="margin-bottom: 10px;">
+                            <input type="file" id="qrFileInput" accept="image/*" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn primary-btn" style="width: 100%;">Tải Lên</button>
+                    </form>
+
+                    <h3 style="margin-bottom: 10px; font-size: 16px;">Cách 2: Nhập đường dẫn URL</h3>
+                    <form id="updateQrForm">
+                        <div class="input-group" style="margin-bottom: 15px;">
+                            <input type="url" id="qrUrlInput" required placeholder="Nhập link ảnh mã QR..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn secondary-btn" style="width: 100%;">Lưu Link URL</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Section: Feedbacks -->
+            <section id="feedbacks" class="content-section">
+                <header>
+                    <h1>Góp Ý Từ Khách Hàng</h1>
+                </header>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Thời Gian</th>
+                                <th>Tài Khoản</th>
+                                <th>Nội Dung Góp Ý</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbacksTableBody">
+                            <!-- Dữ liệu render từ JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section: Settings -->
+            <section id="settings" class="content-section">
+                <header>
+                    <h1>Cài Đặt Tài Khoản</h1>
+                </header>
+                <div class="settings-container" style="max-width: 500px; background: white; padding: 20px; border-radius: 10px; box-shadow: var(--box-shadow);">
+                    <h3 style="margin-bottom: 20px;">Đổi Mật Khẩu</h3>
+                    <form id="changePasswordForm">
+                        <div class="input-group" style="margin-bottom: 15px;">
+                            <label for="newPassword" style="display: block; margin-bottom: 5px;">Mật Khẩu Mới</label>
+                            <input type="password" id="newPassword" required placeholder="Nhập mật khẩu mới..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn primary-btn" style="width: 100%;">Cập Nhật Mật Khẩu</button>
+                        <div id="passwordMessage" style="display:none; margin-top: 10px; text-align: center; font-size: 0.9em;"></div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Staff Modal -->
+    <div id="addStaffModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+        <div class="modal-content" style="background-color: #fefefe; margin: 10% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 400px; border-radius: 10px;">
+            <span class="close-staff-modal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h2 style="margin-bottom: 20px;">Cấp Quyền Staff</h2>
+            <form id="addStaffForm">
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px;">Tên đăng nhập (Username của Khách hàng)</label>
+                    <input type="text" id="newStaffUsername" required placeholder="Nhập username..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <button type="submit" class="btn primary-btn" style="width: 100%;">Nâng cấp thành Staff</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Package Modal -->
+    <div id="addPackageModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+        <div class="modal-content" style="background-color: #fefefe; margin: 10% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 400px; border-radius: 10px;">
+            <span class="close-package-modal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h2 id="packageModalTitle" style="margin-bottom: 20px;">Thêm/Sửa Gói Chụp</h2>
+            <form id="addPackageForm">
+                <input type="hidden" id="editPackageId" value="">
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Tên Gói</label>
+                    <input type="text" id="newPackageName" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Giá (VNĐ)</label>
+                    <input type="number" id="newPackagePrice" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Chi Tiết Tính Năng (mỗi dòng một tính năng)</label>
+                    <textarea id="newPackageFeatures" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" placeholder="Ví dụ:&#10;1 dải ảnh&#10;Chụp trong 10 phút&#10;Nhận file ảnh kỹ thuật số"></textarea>
+                </div>
+                <div class="input-group" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="newPackageBestSeller" style="width: 18px; height: 18px;">
+                    <label for="newPackageBestSeller" style="font-weight: 500; cursor: pointer;">Đánh dấu là Best Seller</label>
+                </div>
+                <button type="submit" id="savePackageBtn" class="btn primary-btn" style="width: 100%;">Lưu Gói</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
